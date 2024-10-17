@@ -35,7 +35,6 @@ user_input = st.text_input("Enter the topic you are interested in:")
 inputTranscript = ''
 result = ''
 current_page_title = ''
-html_file_path = ''
 API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 
 # pages = {
