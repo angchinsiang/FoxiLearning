@@ -15,7 +15,7 @@ import requests
 #from IPython.display import HTML, display
 import random
 
-client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
+client = OpenAI(api_key=os.path.abspath['OpenAI_API_KEY'])
 API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 # Set up the title and instructions
 st.title("Content Search App")
