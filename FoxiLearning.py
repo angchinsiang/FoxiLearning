@@ -15,8 +15,8 @@ import requests
 #from IPython.display import HTML, display
 import random
 
-client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
-API_KEY = st.secrets['Youtube']  # Replace with your YouTube Data API key
+client = OpenAI(api_key= "OpenAI_API_KEY")
+API_KEY = os.environ['Youtube']  # Replace with your YouTube Data API key
 # Set up the title and instructions
 st.title("Content Search App")
 
@@ -70,7 +70,7 @@ def Youtube_search(user_input):
         # Create an HTML file to display the videos
         with open('youtube_videos.html', 'w') as f:
             f.write(
-                '<html><head><style>body{color:black}</style></head><body>\n')
+                '<html><head><style>body{color:white}</style></head><body>\n')
             f.write(f'<h1>Search results for "{user_input}"</h1>\n')
 
             videos = data['items']
