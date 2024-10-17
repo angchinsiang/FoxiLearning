@@ -48,7 +48,8 @@ def Quiz():
       max_tokens=1000,
       temperature=1.2)
   st.write(response.choices[0].message.content)
-  
+  if isinstance(response.choices[0].message.content, dict):
+    st.write("This is a valid Python dictionary.")
   return response.choices[0].message.content
 
  
