@@ -12,7 +12,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import webbrowser
 import requests
 #only to wrap the colab output
-from IPython.display import HTML, display
+#from IPython.display import HTML, display
 import random
 
 # def set_css():
