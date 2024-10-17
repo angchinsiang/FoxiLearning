@@ -16,13 +16,13 @@ import requests
 import random
 
 client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
-
+API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 # Set up the title and instructions
 st.title("Content Search App")
 
 # Ask the user to input their search query
 user_input = st.text_input("Enter the topic you are interested in:")
-API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
+
 
 # pages = {
 #     "Page 1":
