@@ -36,6 +36,7 @@ inputTranscript = ''
 result = ''
 current_page_title = ''
 html_file_path = ''
+API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 
 # pages = {
 #     "Page 1":
@@ -158,7 +159,6 @@ def Youtube_search(user_input):
 
 # Define Youtube API Key and search query
 
-API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 
 if st.button("Submit"):
     Youtube_search(user_input)
