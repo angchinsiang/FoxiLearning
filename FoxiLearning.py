@@ -32,9 +32,6 @@ st.title("Content Search App")
 
 # Ask the user to input their search query
 user_input = st.text_input("Enter the topic you are interested in:")
-inputTranscript = ''
-result = ''
-current_page_title = ''
 API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
 
 # pages = {
