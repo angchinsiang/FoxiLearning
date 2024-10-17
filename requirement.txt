@@ -4,4 +4,4 @@ pyPDF2
 google-generativeai
 os
 youtube_transcript_api
-IPython.display
+IPython
