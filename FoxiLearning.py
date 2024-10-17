@@ -15,14 +15,13 @@ import requests
 #from IPython.display import HTML, display
 import random
 
-client = OpenAI(api_key=os.path.abspath['OpenAI_API_KEY'])
-API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
+client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
+API_KEY = 'AIzaSyCs2A9wAjLPMA6rKN0oGsJHDppcuYZGDec'  # Replace with your YouTube Data API key
 # Set up the title and instructions
 st.title("Content Search App")
 
 # Ask the user to input their search query
 user_input = st.text_input("Enter the topic you are interested in:")
-
 
 # pages = {
 #     "Page 1":
@@ -36,7 +35,6 @@ user_input = st.text_input("Enter the topic you are interested in:")
 # if 'page_index' not in st.session_state:
 #     st.session_state.page_index = 0
 
-
 # # Function to go to the next page
 # def next_page():
 #     if st.session_state.page_index < len(pages) - 1:
@@ -44,13 +42,13 @@ user_input = st.text_input("Enter the topic you are interested in:")
 #         current_page_title = list(pages.keys())[st.session_state.page_index]
 #         st.write(current_page_title)
 
-
 # # Function to go to the previous page
 # def previous_page():
 #     if st.session_state.page_index > 0:
 #         st.session_state.page_index -= 1
 #         current_page_title = list(pages.keys())[st.session_state.page_index]
 #         st.write(current_page_title)
+
 
 def Youtube_search(user_input):
     # YouTube API endpoint and parameters
@@ -60,7 +58,7 @@ def Youtube_search(user_input):
         'q': user_input,
         'type': 'video',
         'key': API_KEY,
-        'maxResults': 100  # Number of videos to retrieve
+        'maxResults': 10  # Number of videos to retrieve
     }
     # Make a request to YouTube API
     response = requests.get(api_url, params=params)
@@ -71,7 +69,8 @@ def Youtube_search(user_input):
 
         # Create an HTML file to display the videos
         with open('youtube_videos.html', 'w') as f:
-            f.write('<html><head><style>body{color:black}</style></head><body>\n')
+            f.write(
+                '<html><head><style>body{color:black}</style></head><body>\n')
             f.write(f'<h1>Search results for "{user_input}"</h1>\n')
 
             videos = data['items']
@@ -87,12 +86,31 @@ def Youtube_search(user_input):
 
                 # Embed the video using an iframe
                 f.write(f'<h3>{title}</h3>\n')
-                f.write(f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
+                f.write(
+                    f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
                 )
                 f.write(f'<p>{description}</p>\n')
                 f.write('<hr>\n')
                 f.write('</body></html>\n')
-                
+
+
+if st.button("Submit"):
+    Youtube_search(user_input)
+    # Path to the HTML file
+    html_file_path = os.path.abspath('youtube_videos.html')
+    # Check if the HTML file exists
+    if os.path.exists(html_file_path):
+        # Read the HTML file content
+        with open(html_file_path, 'r') as f:
+            html_content = f.read()
+
+        # Display the HTML content in Streamlit
+        st.components.v1.html(html_content, height=600, scrolling=True)
+
+    else:
+        st.error("HTML file not found.")
+
+
 def TimeLine(inputTranscript):
     response = client.chat.completions.create(
         model='gpt-4o',
@@ -125,8 +143,6 @@ def Summarization(inputTranscript):
     )
 
 
-
-
 # def Display(current_page_title):
 #     if current_page_title == "Page 2":
 #         # Path to the HTML file
@@ -140,24 +156,7 @@ def Summarization(inputTranscript):
 #             # Display the HTML content in Streamlit
 #         st.components.v1.html(html_content, height=600, scrolling=True)
 
-
 # Define Youtube API Key and search query
-
-if st.button("Submit"):
-    Youtube_search(user_input)
-    # Path to the HTML file
-    html_file_path = os.path.abspath('youtube_videos.html')
-    # Check if the HTML file exists
-    if os.path.exists(html_file_path):
-        # Read the HTML file content
-        with open(html_file_path, 'r') as f:
-            html_content = f.read()
-
-        # Display the HTML content in Streamlit
-        st.components.v1.html(html_content, height=600, scrolling=True)
-
-    else:
-        st.error("HTML file not found.")
 
 # Navigation buttons
 # col1, col2 = st.columns(2)
