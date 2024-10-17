@@ -47,8 +47,8 @@ def Quiz():
       }],
       max_tokens=1000,
       temperature=1.2)
-  res = json.loads(response.choices[0].message.content)
-  return res
+  return response.choices[0].message.content
+
   print(response.choices[0].message.content)
 
 
@@ -69,6 +69,8 @@ with col1:
           f"{response[1][0]}", f"{response[1][1]}", f"{response[1][2]}",
           f"{response[1][3]}"
       ])
+
+    submit = st.form_submit_button(label="Check", type="primary")
 
     topic = st.text_input("Topic")
     st.markdown("## 📝 Enter the video link below:")
