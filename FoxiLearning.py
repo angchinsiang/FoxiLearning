@@ -52,37 +52,6 @@ user_input = st.text_input("Enter the topic you are interested in:")
 #         current_page_title = list(pages.keys())[st.session_state.page_index]
 #         st.write(current_page_title)
 
-def TimeLine(inputTranscript):
-    response = client.chat.completions.create(
-        model='gpt-4o',
-        messages=[{
-            'role':
-            'system',
-            'content':
-            """You will help the user to check whether the input is a subset of user input . Please mention at which timeline in the video in the form of hours:minutes:seconds it is related and how it is related in the format of line by line."""
-        }, {
-            'role': 'user',
-            'content': f'{user_input}'
-        }],
-        max_tokens=2048,
-    )
-
-
-def Summarization(inputTranscript):
-    response = client.chat.completions.create(
-        model='gpt-4o',
-        messages=[{
-            'role':
-            'system',
-            'content':
-            """You are a good story point retriever. You concludes all the important points that are from different timeline that is mentioned in the input. Please come out with as detailed as possible conclusion to help user understand the content key points."""
-        }, {
-            'role': 'user',
-            'content': f'{user_input}'
-        }],
-        max_tokens=2048,
-    )
-
 def Youtube_search(user_input):
     # YouTube API endpoint and parameters
     api_url = 'https://www.googleapis.com/youtube/v3/search'
@@ -123,6 +92,39 @@ def Youtube_search(user_input):
                 f.write(f'<p>{description}</p>\n')
                 f.write('<hr>\n')
                 f.write('</body></html>\n')
+                
+def TimeLine(inputTranscript):
+    response = client.chat.completions.create(
+        model='gpt-4o',
+        messages=[{
+            'role':
+            'system',
+            'content':
+            """You will help the user to check whether the input is a subset of user input . Please mention at which timeline in the video in the form of hours:minutes:seconds it is related and how it is related in the format of line by line."""
+        }, {
+            'role': 'user',
+            'content': f'{user_input}'
+        }],
+        max_tokens=2048,
+    )
+
+
+def Summarization(inputTranscript):
+    response = client.chat.completions.create(
+        model='gpt-4o',
+        messages=[{
+            'role':
+            'system',
+            'content':
+            """You are a good story point retriever. You concludes all the important points that are from different timeline that is mentioned in the input. Please come out with as detailed as possible conclusion to help user understand the content key points."""
+        }, {
+            'role': 'user',
+            'content': f'{user_input}'
+        }],
+        max_tokens=2048,
+    )
+
+
 
 
 # def Display(current_page_title):
