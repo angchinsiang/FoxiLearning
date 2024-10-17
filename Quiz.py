@@ -50,6 +50,8 @@ def Quiz():
   st.write(response.choices[0].message.content)
   if isinstance(response.choices[0].message.content, dict):
     st.write("This is a valid Python dictionary.")
+  else:
+    st.write("blah")
   return response.choices[0].message.content
 
  
