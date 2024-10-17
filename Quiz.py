@@ -13,7 +13,7 @@ import requests
 import random
 
 client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
-
+choice=''
 
 def Quiz():
   response = client.chat.completions.create(
@@ -47,9 +47,10 @@ def Quiz():
       }],
       max_tokens=1000,
       temperature=1.2)
+  print(response.choices[0].message.content)
   return response.choices[0].message.content
 
-  print(response.choices[0].message.content)
+ 
 
 
 def Layout(response):
@@ -74,10 +75,10 @@ with col1:
     Layout(Quiz())
     submit = st.form_submit_button(label="Check", type="primary")
 
-    topic = st.text_input("Topic")
-    st.markdown("## 📝 Enter the video link below:")
-    videoUrl = st.text_input("Video Link")
-    submit = st.form_submit_button(label="Check", type="primary")
+    # topic = st.text_input("Topic")
+    # st.markdown("## 📝 Enter the video link below:")
+    # videoUrl = st.text_input("Video Link")
+    # submit = st.form_submit_button(label="Check", type="primary")
 
 with col2.container(height=400):
   # Create a scrollable container
