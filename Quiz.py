@@ -17,7 +17,7 @@ client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
 
 def Quiz():
   response = client.chat.completions.create(
-      model='gpt-3.5-turbo',
+      model='gpt-4o',
       messages=[{
           "role":
           "system",
@@ -47,6 +47,8 @@ def Quiz():
       }],
       max_tokens=1000,
       temperature=1.2)
+  res = json.loads(response.choices[0].message.content)
+  return res
   print(response.choices[0].message.content)
 
 
@@ -59,6 +61,15 @@ col1, col2 = st.columns([2, 1])
 with col1:
   with st.form(key="FoxiLearn"):
     st.markdown("##  Enter your topic below:")
+
+    def Layout(response):
+      st.write("Select your best answer:")
+
+      choice = st.radio(f"{response[0]}", [
+          f"{response[1][0]}", f"{response[1][1]}", f"{response[1][2]}",
+          f"{response[1][3]}"
+      ])
+
     topic = st.text_input("Topic")
     st.markdown("## 📝 Enter the video link below:")
     videoUrl = st.text_input("Video Link")
