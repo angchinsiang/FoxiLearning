@@ -145,7 +145,7 @@ def Youtube_search(user_input):
 
 
 def Display(current_page_title):
-    if current_page_title == "Page 1":
+    if current_page_title == "Page 3":
         # Path to the HTML file
         if (html_file_path == ''):
             st.write("No Page Found")
