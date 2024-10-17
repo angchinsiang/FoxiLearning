@@ -98,7 +98,6 @@ def Summarization(inputTranscript):
         max_tokens=2048,
     )
 
-
 def Youtube_search(user_input):
 
     # YouTube API endpoint and parameters
@@ -158,7 +157,6 @@ def Youtube_search(user_input):
 
 
 # Define Youtube API Key and search query
-
 
 if st.button("Submit"):
     Youtube_search(user_input)
