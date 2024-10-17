@@ -135,8 +135,7 @@ def Youtube_search(user_input):
 
                 # Embed the video using an iframe
                 f.write(f'<h3>{title}</h3>\n')
-                f.write(
-                    f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
+                f.write(f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
                 )
                 f.write(f'<p>{description}</p>\n')
                 f.write('<hr>\n')
