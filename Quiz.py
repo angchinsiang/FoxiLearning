@@ -25,7 +25,6 @@ def Quiz():
           "content":
           "You are a quiz genetator that generate proper, suitable quiz questions based on input subject given. The format of question is in 'multiple choice format e.g. a), b), c), d)'. You will breakdown and solve the question on your own knowledge, and provide the answer in a JSON format. Do not mention 'JSON' in your response"},
                 {"role": "user", "content": "primary school math multiplication"}
-{"role": "user","content": "primary school math multiplication"}
       ],
       max_tokens=1000,temperature=1.2)
   
@@ -81,3 +80,8 @@ section.main > div:has(~ footer ) {
 </style>
 '''
 st.markdown(css, unsafe_allow_html=True)
+
+          
+          
+      
+      
