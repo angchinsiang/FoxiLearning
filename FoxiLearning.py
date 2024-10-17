@@ -15,16 +15,6 @@ import requests
 #from IPython.display import HTML, display
 import random
 
-# def set_css():
-#     display(HTML('''
-#     <style>
-#       pre {
-#           white-space: pre-wrap;
-#       }
-#     </style>
-#     '''))
-# get_ipython().events.register('pre_run_cell', set_css)
-#inputTranscript = YouTubeTranscriptApi.get_transcript('1FZ0A1QCMWc')
 client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
 
 # Set up the title and instructions
@@ -62,7 +52,6 @@ API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube
 #         current_page_title = list(pages.keys())[st.session_state.page_index]
 #         st.write(current_page_title)
 
-
 def TimeLine(inputTranscript):
     response = client.chat.completions.create(
         model='gpt-4o',
@@ -95,7 +84,6 @@ def Summarization(inputTranscript):
     )
 
 def Youtube_search(user_input):
-
     # YouTube API endpoint and parameters
     api_url = 'https://www.googleapis.com/youtube/v3/search'
     params = {
@@ -105,7 +93,6 @@ def Youtube_search(user_input):
         'key': API_KEY,
         'maxResults': 100  # Number of videos to retrieve
     }
-
     # Make a request to YouTube API
     response = requests.get(api_url, params=params)
     #print(response)
