@@ -47,7 +47,8 @@ def Quiz():
       }],
       max_tokens=1000,
       temperature=1.2)
-  print(response.choices[0].message.content)
+  st.write(response.choices[0].message.content)
+  
   return response.choices[0].message.content
 
  
