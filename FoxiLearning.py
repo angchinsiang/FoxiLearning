@@ -37,33 +37,33 @@ result = ''
 current_page_title = ''
 html_file_path = ''
 
-pages = {
-    "Page 1":
-    "Welcome to Page 1! This is the first page of our multi-page application.",
-    "Page 2": "This is Page 2! Here we have some different content.",
-    "Page 3":
-    "You've reached Page 3! More interesting information can be found here.",
-    "Page 4": "This is the last page, Page 4! Thank you for browsing!"
-}
+# pages = {
+#     "Page 1":
+#     "Welcome to Page 1! This is the first page of our multi-page application.",
+#     "Page 2": "This is Page 2! Here we have some different content.",
+#     "Page 3":
+#     "You've reached Page 3! More interesting information can be found here.",
+#     "Page 4": "This is the last page, Page 4! Thank you for browsing!"
+# }
 
-if 'page_index' not in st.session_state:
-    st.session_state.page_index = 0
-
-
-# Function to go to the next page
-def next_page():
-    if st.session_state.page_index < len(pages) - 1:
-        st.session_state.page_index += 1
-        current_page_title = list(pages.keys())[st.session_state.page_index]
-        st.write(current_page_title)
+# if 'page_index' not in st.session_state:
+#     st.session_state.page_index = 0
 
 
-# Function to go to the previous page
-def previous_page():
-    if st.session_state.page_index > 0:
-        st.session_state.page_index -= 1
-        current_page_title = list(pages.keys())[st.session_state.page_index]
-        st.write(current_page_title)
+# # Function to go to the next page
+# def next_page():
+#     if st.session_state.page_index < len(pages) - 1:
+#         st.session_state.page_index += 1
+#         current_page_title = list(pages.keys())[st.session_state.page_index]
+#         st.write(current_page_title)
+
+
+# # Function to go to the previous page
+# def previous_page():
+#     if st.session_state.page_index > 0:
+#         st.session_state.page_index -= 1
+#         current_page_title = list(pages.keys())[st.session_state.page_index]
+#         st.write(current_page_title)
 
 
 def TimeLine(inputTranscript):
@@ -144,18 +144,18 @@ def Youtube_search(user_input):
                 f.write('</body></html>\n')
 
 
-def Display(current_page_title):
-    if current_page_title == "Page 2":
-        # Path to the HTML file
-        if (html_file_path == ''):
-            st.write("No Page Found")
-            return
+# def Display(current_page_title):
+#     if current_page_title == "Page 2":
+#         # Path to the HTML file
+#         if (html_file_path == ''):
+#             st.write("No Page Found")
+#             return
 
-        with open(html_file_path, 'r') as f:
-            html_content = f.read()
+#         with open(html_file_path, 'r') as f:
+#             html_content = f.read()
 
-            # Display the HTML content in Streamlit
-        st.components.v1.html(html_content, height=600, scrolling=True)
+#             # Display the HTML content in Streamlit
+#         st.components.v1.html(html_content, height=600, scrolling=True)
 
 
 # Define Youtube API Key and search query
@@ -179,16 +179,16 @@ if st.button("Submit"):
         st.error("HTML file not found.")
 
 # Navigation buttons
-col1, col2 = st.columns(2)
+# col1, col2 = st.columns(2)
 
-with col1:
-    if st.button("Back"):
-        previous_page()
-        Display(current_page_title)
+# with col1:
+#     if st.button("Back"):
+#         previous_page()
+#         Display(current_page_title)
 
-with col2:
-    if st.button("Next"):
-        next_page()
-        Display(current_page_title)
+# with col2:
+#     if st.button("Next"):
+#         next_page()
+#         Display(current_page_title)
 
 #current_page_content = pages[current_page_title]
