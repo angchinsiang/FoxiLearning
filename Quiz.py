@@ -52,6 +52,15 @@ def Quiz():
   print(response.choices[0].message.content)
 
 
+def Layout(response):
+  st.write("Select your best answer:")
+
+  choice = st.radio(f"{response[0]}", [
+      f"{response[1][0]}", f"{response[1][1]}", f"{response[1][2]}",
+      f"{response[1][3]}"
+  ])
+
+
 # store = json.loads(response.choices[0].message.content)
 # print("\n", store['question'])
 
@@ -62,14 +71,7 @@ with col1:
   with st.form(key="FoxiLearn"):
     st.markdown("##  Enter your topic below:")
 
-    def Layout(response):
-      st.write("Select your best answer:")
-
-      choice = st.radio(f"{response[0]}", [
-          f"{response[1][0]}", f"{response[1][1]}", f"{response[1][2]}",
-          f"{response[1][3]}"
-      ])
-
+    Layout(Quiz())
     submit = st.form_submit_button(label="Check", type="primary")
 
     topic = st.text_input("Topic")
