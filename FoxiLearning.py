@@ -34,6 +34,8 @@ st.title("Content Search App")
 user_input = st.text_input("Enter the topic you are interested in:")
 inputTranscript = ''
 result = ''
+current_page_title = ''
+html_file_path = ''
 
 pages = {
     "Page 1":
@@ -52,12 +54,16 @@ if 'page_index' not in st.session_state:
 def next_page():
     if st.session_state.page_index < len(pages) - 1:
         st.session_state.page_index += 1
+        current_page_title = list(pages.keys())[st.session_state.page_index]
+        st.write(current_page_title)
 
 
 # Function to go to the previous page
 def previous_page():
     if st.session_state.page_index > 0:
         st.session_state.page_index -= 1
+        current_page_title = list(pages.keys())[st.session_state.page_index]
+        st.write(current_page_title)
 
 
 def TimeLine(inputTranscript):
@@ -91,68 +97,69 @@ def Summarization(inputTranscript):
         max_tokens=2048,
     )
 
+def Youtube_search(user_input):
+
+# YouTube API endpoint and parameters
+api_url = 'https://www.googleapis.com/youtube/v3/search'
+params = {
+    'part': 'snippet',
+    'q': user_input,
+    'type': 'video',
+    'key': API_KEY,
+    'maxResults': 100  # Number of videos to retrieve
+}
+
+# Make a request to YouTube API
+response = requests.get(api_url, params=params)
+#print(response)
+# Check if the response is successful
+if response.status_code == 200:
+    data = response.json()
+
+    # Create an HTML file to display the videos
+    with open('youtube_videos.html', 'w') as f:
+        f.write(
+            '<html><head><style>body{color:white}</style></head><body>\n')
+        f.write(f'<h1>Search results for "{user_input}"</h1>\n')
+
+        videos = data['items']
+        random.shuffle(videos)
+        # Select the top 'num_to_select' videos
+        selected_videos = videos[:5]
+
+        # Loop through each video in the response and embed it
+        for item in selected_videos:
+            video_id = item['id']['videoId']
+            title = item['snippet']['title']
+            description = item['snippet']['description']
+
+            # Embed the video using an iframe
+            f.write(f'<h3>{title}</h3>\n')
+            f.write(
+                f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
+            )
+            f.write(f'<p>{description}</p>\n')
+            f.write('<hr>\n')
+            f.write('</body></html>\n')
+
+
+def Display(current_page_title):
+    if current_page_title == "Page 1":
+        # Path to the HTML file
+        if (html_file_path == ''):
+            st.write("No Page Found")
+            return
+
+        with open(html_file_path, 'r') as f:
+            html_content = f.read()
+
+            # Display the HTML content in Streamlit
+        st.components.v1.html(html_content, height=600, scrolling=True)
+
 
 # Define Youtube API Key and search query
 
 API_KEY = 'AIzaSyBmc8Xkl-EBWj8BJJAzA_kJS5B9r2tTmgI'  # Replace with your YouTube Data API key
-
-
-def Youtube_search(user_input):
-
-    # YouTube API endpoint and parameters
-    api_url = 'https://www.googleapis.com/youtube/v3/search'
-    params = {
-        'part': 'snippet',
-        'q': user_input,
-        'type': 'video',
-        'key': API_KEY,
-        'maxResults': 100  # Number of videos to retrieve
-    }
-
-    # Make a request to YouTube API
-    response = requests.get(api_url, params=params)
-    #print(response)
-    # Check if the response is successful
-    if response.status_code == 200:
-        data = response.json()
-
-        # Create an HTML file to display the videos
-        with open('youtube_videos.html', 'w') as f:
-            f.write(
-                '<html><head><style>body{color:white}</style></head><body>\n')
-            f.write(f'<h1>Search results for "{user_input}"</h1>\n')
-
-            videos = data['items']
-            random.shuffle(videos)
-            # Select the top 'num_to_select' videos
-            selected_videos = videos[:5]
-
-            # Loop through each video in the response and embed it
-            for item in selected_videos:
-                video_id = item['id']['videoId']
-                title = item['snippet']['title']
-                description = item['snippet']['description']
-
-                # Embed the video using an iframe
-                f.write(f'<h3>{title}</h3>\n')
-                f.write(
-                    f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>\n'
-                )
-                f.write(f'<p>{description}</p>\n')
-                f.write('<hr>\n')
-                f.write('</body></html>\n')
-
-
-# Navigation buttons
-col1, col2 = st.columns(2)
-
-with col1:
-    if st.button("Back"):
-        previous_page()
-
-with col2:
-    if st.button("Next"):
-        next_page()
 
 if st.button("Submit"):
     Youtube_search(user_input)
@@ -169,3 +176,19 @@ if st.button("Submit"):
 
     else:
         st.error("HTML file not found.")
+
+
+# Navigation buttons
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("Back"):
+        previous_page()
+        Display(current_page_title)
+
+with col2:
+    if st.button("Next"):
+        next_page()
+        Display(current_page_title)
+
+#current_page_content = pages[current_page_title]
