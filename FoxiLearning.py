@@ -4,7 +4,7 @@
 import streamlit as st
 import os
 from openai import OpenAI
-
+import json
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
@@ -141,6 +141,43 @@ def Summarization(inputTranscript):
         }],
         max_tokens=2048,
     )
+
+
+def Quiz():
+    response = client.chat.completions.create(
+        model='gpt-3.5-turbo',
+        messages=[{
+            "role":
+            "system",
+            "content":
+            "You are a quiz genetator that generate proper, suitable quiz questions based on input subject given. The format of question is in 'multiple choice format e.g. a), b), c), d)'. You will breakdown and solve the question on your own knowledge, and provide the answer in a JSON format. Do not mention 'JSON' in your response"
+        }, {
+            "role": "user",
+            "content": "primary school math multiplication"
+        }, {
+            "role":
+            "assistant",
+            "content":
+            """{{
+      "question": "What is the product of 6 multiplied by 8?",
+      "options": {
+        "a": 14,
+        "b": 48,
+        "c": 54,
+        "d": 62
+      },
+      "answer": 48
+    }
+    """
+        }, {
+            "role": "user",
+            "content": "primary school math multiplication"
+        }],
+        max_tokens=1000,
+        temperature=1.2)
+    print(response.choices[0].message.content)
+    store = json.loads(response.choices[0].message.content)
+    print("\n", store['question'])
 
 
 # def Display(current_page_title):
