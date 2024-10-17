@@ -13,7 +13,8 @@ import requests
 import random
 
 client = OpenAI(api_key=st.secrets['OpenAI_API_KEY'])
-choice=''
+choice = ''
+
 
 def Quiz():
   response = client.chat.completions.create(
@@ -52,9 +53,7 @@ def Quiz():
     st.write("This is a valid Python dictionary.")
   else:
     st.write("blah")
-  return response.choices[0].message.content
-
- 
+  return json.loads(response.choices[0].message.content.strip())
 
 
 def Layout(response):
